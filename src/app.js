@@ -16,7 +16,7 @@ const {
 
 
 app.get('/', function (req, res) {
-  res.send('Se inscreva no meu canal!!!');
+  res.send('Hello world');
 });
 
 MongoClient.connect(
