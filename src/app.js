@@ -1,38 +1,24 @@
 require('dotenv/config');
 const express = require('express');
-const MongoClient = require("mongodb").MongoClient;
+const bodyParser = require('body-parser');
 
 const app = express();
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+require('./controller/authController')(app);
+
 const {
   APP_URL,
-  APP_PORT,
-  DB_DATABASE,
-  DB_HOSTNAME,
-  DB_PORT,
-  DB_USERNAME,
-  DB_PASSWORD
+  APP_PORT
 } = process.env;
 
-
 app.get('/', function (req, res) {
-  res.send('Hello world');
+  res.send('Hello world teste');
 });
-
-MongoClient.connect(
-  `mongodb://${DB_HOSTNAME}:${DB_PORT}/${DB_DATABASE}`,
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
-  .then(result => {
-    console.log('MongoDB Connect!!!');
-  })
-  .catch(error => {
-    console.log('MongoDB Fail!!!');
-  });
 
 app.listen(APP_PORT);
 
-console.log(`Setup NoMoreBug [ON]: ${APP_URL}:${APP_PORT}`);
+console.log(`App [ON]: ${APP_URL}:${APP_PORT}`);
 

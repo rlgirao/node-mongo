@@ -1,8 +1,8 @@
 version: '3.7'
 
 services:
-    web:
-        container_name: web
+    app:
+        container_name: app
         build: .
         restart: always
         env_file:
@@ -11,16 +11,16 @@ services:
             - .:/usr/src/app
             - /usr/src/app/node_modules
         depends_on:
-            - db
+            - mongo
         links:
-            - db
+            - mongo
         ports:
             - ${APP_PORT}:${APP_PORT}
         command: npm run start
 
-    db:
+    mongo:
         image: mongo:latest
-        container_name: db
+        container_name: mongo
         restart: always
         env_file:
             - .env
